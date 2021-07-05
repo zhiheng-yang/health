@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysDiseaseMapper">
+    
+    <resultMap type="SysDisease" id="SysDiseaseResult">
+        <result property="id"    column="id"    />
+        <result property="diseaseTable"    column="disease_table"    />
+        <result property="kidName"    column="kid_name"    />
+        <result property="startdate"    column="startDate"    />
+        <result property="stopdate"    column="stopDate"    />
+    </resultMap>
+
+    <sql id="selectSysDiseaseVo">
+        select id, disease_table, kid_name, startDate, stopDate from sys_disease
+    </sql>
+
+    <select id="selectSysDiseaseList" parameterType="SysDisease" resultMap="SysDiseaseResult">
+        <include refid="selectSysDiseaseVo"/>
+        <where>  
+            <if test="diseaseTable != null  and diseaseTable != ''"> and disease_table = #{diseaseTable}</if>
+            <if test="kidName != null  and kidName != ''"> and kid_name like concat('%', #{kidName}, '%')</if>
+            <if test="startdate != null "> and startDate = #{startdate}</if>
+            <if test="stopdate != null "> and stopDate = #{stopdate}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysDiseaseById" parameterType="Long" resultMap="SysDiseaseResult">
+        <include refid="selectSysDiseaseVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysDisease" parameterType="SysDisease" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_disease
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="diseaseTable != null">disease_table,</if>
+            <if test="kidName != null">kid_name,</if>
+            <if test="startdate != null">startDate,</if>
+            <if test="stopdate != null">stopDate,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="diseaseTable != null">#{diseaseTable},</if>
+            <if test="kidName != null">#{kidName},</if>
+            <if test="startdate != null">#{startdate},</if>
+            <if test="stopdate != null">#{stopdate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysDisease" parameterType="SysDisease">
+        update sys_disease
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="diseaseTable != null">disease_table = #{diseaseTable},</if>
+            <if test="kidName != null">kid_name = #{kidName},</if>
+            <if test="startdate != null">startDate = #{startdate},</if>
+            <if test="stopdate != null">stopDate = #{stopdate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysDiseaseById" parameterType="Long">
+        delete from sys_disease where id = #{id}
+    </delete>
+
+    <delete id="deleteSysDiseaseByIds" parameterType="String">
+        delete from sys_disease where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

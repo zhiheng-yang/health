@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysActivityMapper">
+    
+    <resultMap type="SysActivity" id="SysActivityResult">
+        <result property="id"    column="id"    />
+        <result property="kidName"    column="kid_name"    />
+        <result property="evaluation"    column="evaluation"    />
+        <result property="activity"    column="activity"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysActivityVo">
+        select id, kid_name, evaluation, activity, remark from sys_activity
+    </sql>
+
+    <select id="selectSysActivityList" parameterType="SysActivity" resultMap="SysActivityResult">
+        <include refid="selectSysActivityVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+            <if test="kidName != null  and kidName != ''"> and kid_name like concat('%', #{kidName}, '%')</if>
+            <if test="evaluation != null  and evaluation != ''"> and evaluation = #{evaluation}</if>
+            <if test="activity != null  and activity != ''"> and activity = #{activity}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysActivityById" parameterType="Long" resultMap="SysActivityResult">
+        <include refid="selectSysActivityVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysActivity" parameterType="SysActivity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="kidName != null">kid_name,</if>
+            <if test="evaluation != null">evaluation,</if>
+            <if test="activity != null">activity,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="kidName != null">#{kidName},</if>
+            <if test="evaluation != null">#{evaluation},</if>
+            <if test="activity != null">#{activity},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysActivity" parameterType="SysActivity">
+        update sys_activity
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="kidName != null">kid_name = #{kidName},</if>
+            <if test="evaluation != null">evaluation = #{evaluation},</if>
+            <if test="activity != null">activity = #{activity},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysActivityById" parameterType="Long">
+        delete from sys_activity where id = #{id}
+    </delete>
+
+    <delete id="deleteSysActivityByIds" parameterType="String">
+        delete from sys_activity where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysMealsMapper">
+    
+    <resultMap type="SysMeals" id="SysMealsResult">
+        <result property="id"    column="id"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="date"    column="date"    />
+        <result property="breakfast"    column="breakfast"    />
+        <result property="lunch"    column="lunch"    />
+        <result property="dinner"    column="dinner"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysMealsVo">
+        select id, dept_id, date, breakfast, lunch, dinner, remark from sys_meals
+    </sql>
+
+    <select id="selectSysMealsList" parameterType="SysMeals" resultMap="SysMealsResult">
+        <include refid="selectSysMealsVo"/>
+        <where>  
+            <if test="id != null  and id != ''"> and id = #{id}</if>
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="breakfast != null  and breakfast != ''"> and breakfast = #{breakfast}</if>
+            <if test="lunch != null  and lunch != ''"> and lunch = #{lunch}</if>
+            <if test="dinner != null  and dinner != ''"> and dinner = #{dinner}</if>
+            <if test="remark != null  and remark != ''"> and remark = #{remark}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysMealsById" parameterType="String" resultMap="SysMealsResult">
+        <include refid="selectSysMealsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysMeals" parameterType="SysMeals">
+        insert into sys_meals
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="date != null">date,</if>
+            <if test="breakfast != null">breakfast,</if>
+            <if test="lunch != null">lunch,</if>
+            <if test="dinner != null">dinner,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="date != null">#{date},</if>
+            <if test="breakfast != null">#{breakfast},</if>
+            <if test="lunch != null">#{lunch},</if>
+            <if test="dinner != null">#{dinner},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysMeals" parameterType="SysMeals">
+        update sys_meals
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="breakfast != null">breakfast = #{breakfast},</if>
+            <if test="lunch != null">lunch = #{lunch},</if>
+            <if test="dinner != null">dinner = #{dinner},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysMealsById" parameterType="String">
+        delete from sys_meals where id = #{id}
+    </delete>
+
+    <delete id="deleteSysMealsByIds" parameterType="String">
+        delete from sys_meals where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

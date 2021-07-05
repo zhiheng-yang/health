@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysParentsMapper">
+    
+    <resultMap type="SysParents" id="SysParentsResult">
+        <result property="id"    column="id"    />
+        <result property="parentName"    column="parent_name"    />
+        <result property="password"    column="password"    />
+        <result property="sex"    column="sex"    />
+        <result property="kidId"    column="kid_id"    />
+        <result property="relation"    column="relation"    />
+        <result property="phone"    column="phone"    />
+        <result property="wechat"    column="wechat"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysParentsVo">
+        select id, parent_name, password, sex, kid_id, relation, phone, wechat, remark from sys_parents
+    </sql>
+
+    <select id="selectSysParentsList" parameterType="SysParents" resultMap="SysParentsResult">
+        <include refid="selectSysParentsVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+            <if test="parentName != null  and parentName != ''"> and parent_name like concat('%', #{parentName}, '%')</if>
+            <if test="sex != null  and sex != ''"> and sex = #{sex}</if>
+            <if test="kidId != null  and kidId != ''"> and kid_id = #{kidId}</if>
+            <if test="relation != null  and relation != ''"> and relation = #{relation}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="wechat != null  and wechat != ''"> and wechat = #{wechat}</if>
+            <if test="remark != null  and remark != ''"> and remark = #{remark}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysParentsById" parameterType="Long" resultMap="SysParentsResult">
+        <include refid="selectSysParentsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysParents" parameterType="SysParents" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_parents
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentName != null">parent_name,</if>
+            <if test="password != null">password,</if>
+            <if test="sex != null">sex,</if>
+            <if test="kidId != null">kid_id,</if>
+            <if test="relation != null">relation,</if>
+            <if test="phone != null">phone,</if>
+            <if test="wechat != null">wechat,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="parentName != null">#{parentName},</if>
+            <if test="password != null">#{password},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="kidId != null">#{kidId},</if>
+            <if test="relation != null">#{relation},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="wechat != null">#{wechat},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysParents" parameterType="SysParents">
+        update sys_parents
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="parentName != null">parent_name = #{parentName},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="kidId != null">kid_id = #{kidId},</if>
+            <if test="relation != null">relation = #{relation},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="wechat != null">wechat = #{wechat},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysParentsById" parameterType="Long">
+        delete from sys_parents where id = #{id}
+    </delete>
+
+    <delete id="deleteSysParentsByIds" parameterType="String">
+        delete from sys_parents where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
