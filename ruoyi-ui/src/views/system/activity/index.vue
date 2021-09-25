@@ -10,8 +10,8 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="学生ID" prop="kidName">
-        <el-select v-model="queryParams.kidName" placeholder="请选择学生ID" clearable size="small">
+      <el-form-item label="幼儿ID" prop="kidName">
+        <el-select v-model="queryParams.kidName" placeholder="请选择幼儿ID" clearable size="small">
           <el-option
             v-for="dict in kidNameOptions"
             :key="dict.dictValue"
@@ -85,7 +85,7 @@
     <el-table v-loading="loading" :data="activityList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
-      <el-table-column label="学生ID" align="center" prop="kidName" :formatter="kidNameFormat" />
+      <el-table-column label="幼儿ID" align="center" prop="kidName" :formatter="kidNameFormat" />
       <el-table-column label="评价" align="center" prop="evaluation" :formatter="evaluationFormat" />
       <el-table-column label="活动" align="center" prop="activity" />
       <el-table-column label="备注" align="center" prop="remark" />
@@ -120,8 +120,8 @@
     <!-- 添加或修改日常表现对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="学生ID" prop="kidName">
-          <el-select v-model="form.kidName" placeholder="请选择学生ID">
+        <el-form-item label="幼儿ID" prop="kidName">
+          <el-select v-model="form.kidName" placeholder="请选择幼儿ID">
             <el-option
               v-for="dict in kidNameOptions"
               :key="dict.dictValue"
@@ -182,7 +182,7 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
-      // 学生ID字典
+      // 幼儿ID字典
       kidNameOptions: [],
       // 评价字典
       evaluationOptions: [],
@@ -224,7 +224,7 @@ export default {
         this.loading = false;
       });
     },
-    // 学生ID字典翻译
+    // 幼儿ID字典翻译
     kidNameFormat(row, column) {
       return this.selectDictLabel(this.kidNameOptions, row.kidName);
     },

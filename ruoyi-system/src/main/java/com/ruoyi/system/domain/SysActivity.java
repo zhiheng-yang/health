@@ -18,8 +18,8 @@ public class SysActivity extends BaseEntity
     /** id */
     private Long id;
 
-    /** 学生ID */
-    @Excel(name = "学生ID")
+    /** 幼儿ID */
+    @Excel(name = "幼儿ID")
     private String kidName;
 
     /** 评价 */
