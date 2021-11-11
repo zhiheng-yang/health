@@ -1,5 +1,5 @@
 module.exports = {
-  title: '幼儿环境教育管理平台',
+  title: '产能共享平台',
 
   /**
    * 侧边栏主题 深色主题theme-dark，浅色主题theme-light

@@ -1,8 +1,8 @@
 {
   "name": "zhangchao",
   "version": "3.4.0",
-  "description": "幼儿教育环境管理平台",
-  "author": "张超",
+  "description": "产能共享平台",
+  "author": "杨志恒",
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve",

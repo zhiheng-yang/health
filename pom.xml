@@ -10,7 +10,7 @@
 
     <name>ruoyi</name>
     <url>http://www.baidu.com</url>
-    <description>幼儿教育环境管理平台</description>
+    <description>产能共享平台</description>
 
     <properties>
         <ruoyi.version>3.4.0</ruoyi.version>

@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      title: '幼儿教育环境管理平台',
+      title: '产能共享平台',
       logo: logoImg
     }
   }

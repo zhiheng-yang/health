@@ -20,7 +20,12 @@ import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, 
 import Pagination from "@/components/Pagination";
 // 自定义表格工具扩展
 import RightToolbar from "@/components/RightToolbar"
-
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+// let echarts = require('./assets/echarts.min.js');
+// let china = require('./assets/js/json/china.json');
+// echarts.echarts.registerMap('china', china);
+// Vue.prototype.$echarts = echarts.echarts;
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts
 Vue.prototype.getConfigKey = getConfigKey

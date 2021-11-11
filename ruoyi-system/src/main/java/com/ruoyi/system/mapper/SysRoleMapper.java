@@ -10,7 +10,7 @@ import com.ruoyi.common.core.domain.entity.SysRole;
  */
 public interface SysRoleMapper
 {
-    /**
+    /**v
      * 根据条件分页查询角色数据
      * 
      * @param role 角色信息
